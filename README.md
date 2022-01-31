@@ -7,9 +7,9 @@ Widget for OBS can connect to your channel and show the most used emote in that 
 
 ## Requirements
 
-- NodeJs v17.x.
+- Node js v17.x.
 - OBS (Arch linux Flatpak version)
-- Some Node dependencies use `npm install`
+- Some Node dependencies, for that use: `npm install`
 
 ## How to use
 
