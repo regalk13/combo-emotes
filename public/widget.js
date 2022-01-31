@@ -11,6 +11,7 @@ $(function () {
     } else {
       currentEmote = name;
       document.getElementById("combo").innerHTML = "x" + count;
+      document.getElementById("name").innerHTML = name;
       if (isFFZ == true) {
         const URL = 'https://api.frankerfacez.com/v1/emote/' + image;
         $.get(URL, function (data, status) {
@@ -19,21 +20,55 @@ $(function () {
       } else {
         document.getElementById("emote").src = image;
       }
-      document.getElementById("emote").className = "nil";
-      document.getElementById("border").className = "container";
     }
   });
   socket.on('reset', function () {
-    console.log("Ending");
-    slideUp();
+    counterControl();
   });
 
 });
+
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+async function counterControl() {
+  let combo = document.getElementById("combo");
+  let number = combo.textContent.split("x");
+
+  if (parseInt(number[1]) >= 30) {
+    slideUp();
+  }
+  else if (parseInt(number[1]) >= 15) {
+    await sleep(10000);
+    slideUp();
+
+  }
+
+  else {
+    await sleep(15000);
+    slideUp();
+  }
+}
 
 function emoteAppear() {
   document.querySelector(".container").style.opacity = "1";
 }
 
-function slideUp() {
-  document.querySelector(".container").style.opacity = "0";
+async function slideUp() {
+  combo = document.getElementById("combo");
+  number = combo.textContent.split("x");
+  console.log(number);
+  if (parseInt(number[1]) <= 0 || number[1] == null) {
+    document.querySelector(".container").style.opacity = "0";
+  }
+
+  else {
+    document.querySelector(".container").style.opacity = "1";
+    await sleep(5000);
+    combo.innerHTML = "x0";
+  }
+
 }

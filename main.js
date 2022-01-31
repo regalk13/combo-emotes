@@ -3,19 +3,20 @@ const express = require("express");
 const axios = require('axios');
 const tmi = require('tmi.js');
 const emoji_parser = require('universal-emoji-parser');
-var ttv_username = "username"
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const port = 8080;
+const app = express();
+
+var ttv_username = "yourusername" // Username of twitch
 var ttv_id = "";
-var debug = true;
+var debug = false; // True for more logs...
 let FFZEmotes = new Map();
 let GlobalFFZEmotes = new Map();
 let BTTVEmotes = new Map();
 let GlobalBTTVEmotes = new Map();
-var combo = 2;
-var timeout_timer = -1;
-const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
-const port = 8080;
+var combo = 2; // Number of times of appear one emote to start a combo.
+var timeout_timer = -1; // Aplying soon
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
@@ -129,6 +130,9 @@ client.on('message', (channel, tags, message, self) => {
     if (tags.emotes != null) {
       generateCombo("ttv#" + Object.keys(tags.emotes)[0]);
       return;
+    } else {
+      timeout_timer = 6;
+      timeout();
     }
   }
 
@@ -173,12 +177,10 @@ function generateCombo(emote) {
       if (BTTVEmotes.has(emote)) {
         emoteLink = "https://cdn.betterttv.net/emote/" + BTTVEmotes.get(emote) + "/3x";
         isFFZ = false;
-        console.log("BTTV");
       }
       if (GlobalBTTVEmotes.has(emote)) {
         emoteLink = "https://cdn.betterttv.net/emote/" + GlobalBTTVEmotes.get(emote) + "/3x";
         isFFZ = false;
-        console.log("BTTV");
       }
       if (emoji_parser.parse(emote).includes('https://twemoji.maxcdn.com/v/')) {
         emoteLink = emoji_parser.parse(emote).split('"')[7];
@@ -197,6 +199,7 @@ function generateCombo(emote) {
 
 function sendCombo(emote_name, count, link, isFFZ) {
   io.emit("new combo", count, link, emote_name, isFFZ);
+  timeout();
 }
 
 function autoReload() {
@@ -208,16 +211,9 @@ function autoReload() {
 }
 
 function timeout() {
-  if (timeout_timer == -1) {
-    setTimeout(timeout, 1000);
-  } else if (timeout_timer == 0) {
-    timeout_timer = -1;
+  if (timeout_timer == 6) {
+    console.log(timeout_timer);
+    console.log("Now");
     io.emit('reset');
-    setTimeout(timeout, 1000);
-  } else if (timeout_timer >= 1) {
-    timeout_timer = timeout_timer - 1;
-    setTimeout(timeout, 1000);
-  } else {
-    setTimeout(timeout, 1000);
-  }
-};
+  };
+}
