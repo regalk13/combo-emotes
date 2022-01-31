@@ -3,14 +3,15 @@ const express = require("express");
 const axios = require('axios');
 const tmi = require('tmi.js');
 const emoji_parser = require('universal-emoji-parser');
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
 const port = 8080;
 const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
-var ttv_username = "yourusername" // Username of twitch
+
+var ttv_username = "rubius" // Username of twitch
 var ttv_id = "";
-var debug = false; // True for more logs...
+var debug = true; // True for more logs...
 let FFZEmotes = new Map();
 let GlobalFFZEmotes = new Map();
 let BTTVEmotes = new Map();
@@ -86,7 +87,7 @@ async function createGlobalBTTVEmotes() {
 
 console.log("Trying to connect");
 const client = new tmi.Client({
-  channels: [ttv_username]
+  channels: ["spriobluexd"]
 });
 
 var emoteCombo = 0;
