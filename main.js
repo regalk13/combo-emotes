@@ -9,7 +9,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
 
-var ttv_username = "rubius" // Username of twitch
+var ttv_username = "username" // Username of twitch
 var ttv_id = "";
 var debug = true; // True for more logs...
 let FFZEmotes = new Map();
@@ -87,7 +87,7 @@ async function createGlobalBTTVEmotes() {
 
 console.log("Trying to connect");
 const client = new tmi.Client({
-  channels: ["spriobluexd"]
+  channels: [ttv_username]
 });
 
 var emoteCombo = 0;
