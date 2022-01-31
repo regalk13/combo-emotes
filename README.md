@@ -1,5 +1,6 @@
 # Combo Emotes
-Widget for OBS can connect to your channel and show the most used emote in that moment.
+
+Widget for OBS, to connect at a twitch channel and show the most used emote at each moment
 
 ## Preview
 
