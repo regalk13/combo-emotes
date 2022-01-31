@@ -1,0 +1,71 @@
+*{
+  font-family: 'Anton', sans-serif;
+  color: #fff;
+  text-shadow: 0 0 5px #000;
+}
+
+.container{
+  height: 400px;
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  opacity: 0;
+}
+
+
+.box{
+  position: relative;
+  animation: outs 20s infinite;
+  text-align: center;
+  height: 100px;
+  width: 100px;
+  animation: crazy .2s infinite;
+  order: 5;
+  margin: 5px;
+  /*filter: grayscale(100%);*/
+}
+
+
+img{
+  height: 100%;
+}
+
+.counter-text{
+  order: 1;
+  padding: 45px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  text-align: center;
+}
+
+.number{
+  font-size: 35px;
+}
+
+.combo{
+  font-size: 20px;
+}
+
+.name-container{
+  display: flex;
+  order: 5;
+}
+
+.name{
+  padding-top: 82px;
+  padding-left: 6px;
+  font-size: 25px;
+}
+
+@keyframes crazy{
+  0%{
+    transform: scaleX(1);
+  }
+  
+  100%{
+    transform: scaleX(1.1) scaleY(1.1);
+  }
+}
+
+
