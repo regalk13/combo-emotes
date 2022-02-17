@@ -4,7 +4,7 @@ Widget for OBS, to connect at a twitch channel and show the most used emote at e
 
 ## Preview
 
-<img src="https://im2.ezgif.com/tmp/ezgif-2-b0b26966cb.gif">
+<img src="https://github.com/regalk13/combo-emotes/blob/main/preview/ezgif-1-43ebe40ea8.gif?raw=true">
 
 ## Requirements
 
